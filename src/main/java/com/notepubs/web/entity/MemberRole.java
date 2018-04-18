@@ -1,48 +1,53 @@
-/*package com.notepubs.web.entity;
+package com.notepubs.web.entity;
 
 import java.util.Date;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
 public class MemberRole {
 	
-	@Id
-	private String memberId;
-	@Id
-	private String roleId;
+	@EmbeddedId
+	private MemberRoleId memberRoleId;
 	private String regAdmin;
 	private Date regDate;
-	private char defaultRole;
+	private boolean defaultRole;
 	
 	public MemberRole() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MemberRole(String memberId, String roleId, String regAdmin, Date regDate, char defaultRole) {
+	public MemberRole(String memberId, String roleId, String regAdmin) {
 		super();
-		this.memberId = memberId;
-		this.roleId = roleId;
+		this.memberRoleId.setMemberId(memberId);
+		this.memberRoleId.setRoleId(roleId);
+		this.regAdmin = regAdmin;
+	}
+	
+	public MemberRole(String memberId, String roleId, String regAdmin, Date regDate, boolean defaultRole) {
+		super();
+		this.memberRoleId.setMemberId(memberId);
+		this.memberRoleId.setRoleId(roleId);
 		this.regAdmin = regAdmin;
 		this.regDate = regDate;
 		this.defaultRole = defaultRole;
 	}
 
 	public String getMemberId() {
-		return memberId;
+		return memberRoleId.getMemberId();
 	}
 
 	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+		this.memberRoleId.setMemberId(memberId);
 	}
 
 	public String getRoleId() {
-		return roleId;
+		return memberRoleId.getRoleId();
 	}
 
 	public void setRoleId(String roleId) {
-		this.roleId = roleId;
+		this.memberRoleId.setRoleId(roleId);
 	}
 
 	public String getRegAdmin() {
@@ -61,15 +66,26 @@ public class MemberRole {
 		this.regDate = regDate;
 	}
 
-	public char getDefaultRole() {
+	public boolean isDefaultRole() {
 		return defaultRole;
 	}
 
-	public void setDefaultRole(char defaultRole) {
+	public void setDefaultRole(boolean defaultRole) {
 		this.defaultRole = defaultRole;
 	}
 	
-	
+	public MemberRoleId getMemberRoleId() {
+		return memberRoleId;
+	}
+
+	public void setMemberRoleId(MemberRoleId memberRoleId) {
+		this.memberRoleId = memberRoleId;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberRole [memberId=" + memberRoleId.getMemberId() + ", roleId=" + memberRoleId.getRoleId() + ", regAdmin=" + regAdmin + ", regDate="
+				+ regDate + ", defaultRole=" + defaultRole + "]";
+	}
 	
 }
-*/

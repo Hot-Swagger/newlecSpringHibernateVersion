@@ -44,7 +44,8 @@
 	<section id="ex4" class="example">
 		<h1>효과주기 예제</h1>
 		<div class="text-align-center">
-			<img alt="이미지" src="images/acorn.png">
+			<img class="" alt="이미지" src="images/acorn.png">
+			<img class="" alt="이미지" src="images/answeris.png">
 		</div>
 		<div>
 			<input class="input" type="text" list="img-list" />
@@ -56,7 +57,7 @@
 				<option>red.png</option>
 			</datalist>
 			<input class="btn btn-default btn-ok" type="button" value="확인" />
-			<input class="btn btn-default btn-toggle" type="button" value="토글" />
+			<input class="btn btn-default btn-css" type="button" value="css 애니메이트" />
 		</div>
 	</section>
 </body>

@@ -13,7 +13,9 @@ public class NotepubsDispatcherServletInitializer extends
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
 		return new Class[] {
-				NotepubsSecurityConfig.class
+				HibernateConfig.class,
+				NotepubsSecurityConfig.class,
+				NotepubsLoginSuccessHandler.class
 		};
 	}
 
@@ -23,7 +25,6 @@ public class NotepubsDispatcherServletInitializer extends
 		return new Class[] {
 				ServletContextConfig.class,
 				NotepubsMvcConfig.class,
-				HibernateConfig.class,
 				TilesConfig.class
 		};
 	}

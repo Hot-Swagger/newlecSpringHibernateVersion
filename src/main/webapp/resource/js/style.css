@@ -198,3 +198,29 @@ body {
     box-Shadow: #979797 3px 3px 3px;
 }
 
+.trans{
+	transition: 400ms;
+}
+
+@keyframes size-up{
+	from{
+		width: 180px;
+	}
+	
+	50%{
+		height: 200px;
+	}
+	
+	to{
+		width: 300px;
+	}
+}
+
+.animate{
+	animation-name: size-up;
+	animation-duration: 5s;
+}
+
+
+
+

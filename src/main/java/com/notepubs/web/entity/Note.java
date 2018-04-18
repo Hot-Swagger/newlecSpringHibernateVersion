@@ -11,7 +11,7 @@ public class Note {
 	private int id;
 	private String title;
 	private String content;
-	//private String writerId;
+	private String writerId;
 	private Date regDate;
 	private int hit;
 	//private int order;
@@ -21,11 +21,11 @@ public class Note {
 
 	}
 	
-	public Note(int id, String title, String content) {
+	public Note(int id, String title, String content, String writerId) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
-		//this.writerId = writerId;
+		this.writerId = writerId;
 	}
 	
 	public int getId() {
@@ -46,12 +46,12 @@ public class Note {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	/*public String getWriterId() {
+	public String getWriterId() {
 		return writerId;
 	}
 	public void setWriterId(String writerId) {
 		this.writerId = writerId;
-	}*/
+	}
 	public Date getRegDate() {
 		return regDate;
 	}

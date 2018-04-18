@@ -7,7 +7,9 @@
 	<ul>
 		<li><a href="${root}/member/login">로그인</a></li>
 		<!-- 스프링 4.0이상에서 지원하는 로드아웃 페이지 경로 -->
-		<li><a href="${root}/logout">로그아웃</a></li>
-		<li><a href="${root}/join">회원가입</a></li>
+		<li><a href="${root}/member/logout">로그아웃</a></li>
+		<li><a href="${root}/member/join">회원가입</a></li>
+		<li><a href="${root}/author/index">저작자페이지</a></li>
+		<li><a href="${root}/admin/index">관리자페이지</a></li>
 	</ul>
 </nav>

@@ -68,29 +68,62 @@ $(function () {
 
 /*ex4. 효과주기*/
 $(function () {
-	var img = $('#ex4 img');
+	var img1 = $('#ex4 img:first-child');
+	var img2 = $('#ex4 img:last-child');
     var okButton = $('#ex4 .btn-ok');
-    var toggleButton = $('#ex4 .btn-toggle');
+    var cssButton = $('#ex4 .btn-css');
     okButton.click(function(){
 
         // 1. css 변화에 duration을 주기
-        var imgStyle = {
+    	/*
+    	var imgStyle = {
         	width:"300px",
         	height:"100px",
         	boxShadow:"#979797 3px 3px 3px"
         };
-        //img.animate(imgStyle);
-        img.animate(imgStyle, 3000);
-    });
-
-    toggleButton.click(function(){
+        img1.animate(imgStyle, 3000); // img.animate(imgStyle);
+        */
+    	
         // 2. css 변화에 순서를 주고 싶을 때
-        img
+        /*img1
         .animate({
             width:"300px"
         })
         .animate({
             height:"100px"
-        });
+        });*/
+    	/*
+    	img2
+		.delay(800)	//	800 딜레이 후에 변형
+		.animate({
+			width:"200px",
+			height:"100px"
+		});*/
+    	
+    	img1.animate({	//	함수안에 함수
+			width:"200px"
+		},function(){
+			img2
+			.animate({
+				width:"200px",
+				height:"200px"
+			});	
+		})
+		.animate({
+			height:"200px"
+		},2000);
+    });
+
+    cssButton.click(function(){
+    	
+    	img1
+		.css({
+			width:"300px"
+		})
+		.css({
+			height:"200px"
+		});
+    	
+    	//img2.addClass("animate");
     });
 });

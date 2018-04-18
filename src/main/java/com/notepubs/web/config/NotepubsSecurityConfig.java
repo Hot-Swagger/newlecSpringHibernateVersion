@@ -4,7 +4,7 @@ package com.notepubs.web.config;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,13 +13,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan("com.notepubs.web.config")
 public class NotepubsSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	/*@Autowired
-	private DataSource dataSource;*/
+	@Autowired
+	private DataSource dataSource;
+	
+	@Autowired
+	private  AuthenticationSuccessHandler successHandler;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -39,29 +44,29 @@ public class NotepubsSecurityConfig extends WebSecurityConfigurerAdapter {
 		.httpBasic();
 		*/
 		http
+			.csrf().disable()
 			.authorizeRequests()
 			//--------------------------------
-			.antMatchers("/*","/note/**","/member/**").permitAll()
-			.antMatchers("/resource/**").permitAll()
-			.antMatchers("/aurhor/**").hasRole("AUTHOR")	//	.access("hasRole('AUTHOR') or hasRole('ADMIN')")
+			//.antMatchers("/*","/note/**","/member/**").permitAll()
+			//.antMatchers("/resource/**").permitAll()
+			.antMatchers("/author/**").hasAnyRole("AUTHOR","ADMIN")	//	.access("hasRole('AUTHOR') or hasRole('ADMIN')")
+			.antMatchers("/admin/**").hasRole("ADMIN")
 			//--------------------------------
-			.anyRequest().authenticated()	// 모든요청에 인증이 필요하게 설정하는 내용
+			//.anyRequest().authenticated()	// 모든요청에 인증이 필요하게 설정하는 내용
 			.and()
 		.formLogin()
 			.loginPage("/member/login")
 			.loginProcessingUrl("/member/login")	// 요청 URL이름을 변경하는 기능
-			.permitAll()
-			.defaultSuccessUrl("/author/index")
+			.successHandler(successHandler)
+			//.failureHandler(authenticationFailureHandler)	// 실패시 핸들러
+			//.defaultSuccessUrl("/author/index")
 			.and()
 		.logout()
+			.logoutUrl("/member/logout")	//logout url 사용자 지정
 			.logoutSuccessUrl("/index")
 			.invalidateHttpSession(true)
 			.and()			
 		.httpBasic();
-			
-		http.csrf().disable();
-			
-			
 	
 	}
 	
@@ -76,16 +81,16 @@ public class NotepubsSecurityConfig extends WebSecurityConfigurerAdapter {
 		UserBuilder users = User.builder();
 		
 		/*jdbc 방식*/
-		/*auth
+		auth
 			.jdbcAuthentication()
 			.dataSource(dataSource)
-			.usersByUsernameQuery("select id, pwd AS password, 1 enabled from Member where id=?")
-			.authoritiesByUsernameQuery("select memberId AS id, roleId AS authority from MemberRole where memberId=?")
-			.passwordEncoder(new BCryptPasswordEncoder());*/
+			.usersByUsernameQuery("select id, pwd password, 1 enabled from Member where id=?")
+			.authoritiesByUsernameQuery("select memberId id, roleId authority from MemberRole where memberId=?")
+			.passwordEncoder(new BCryptPasswordEncoder());
 		
 		/*인메모리 방식*/
-		auth.inMemoryAuthentication()
+		/*auth.inMemoryAuthentication()
 			.withUser(users.username("dskim").password("{noop}dskim").roles("ADMIN","AUTHOR"))
-			.withUser(users.username("dragon").password("{noop}111").roles("AUTHOR"));
+			.withUser(users.username("dragon").password("{noop}111").roles("AUTHOR"));*/
 	}
 }
