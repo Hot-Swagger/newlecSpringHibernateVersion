@@ -204,21 +204,25 @@ body {
 
 @keyframes size-up{
 	from{
-		width: 180px;
+		width: 300px;
 	}
 	
-	50%{
-		height: 200px;
-	}
+	/* 50%{
+		width: 300px;
+	} */
 	
 	to{
-		width: 300px;
+		width: 100px;
 	}
 }
 
 .animate{
-	animation-name: size-up;
-	animation-duration: 5s;
+	/* animation-name: size-up;
+	animation-duration: 1s;
+	animation-direction: normal;
+	animation-fill-mode: forwards; */
+	
+	animation: size-up 1s alternate ease;
 }
 
 

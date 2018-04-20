@@ -1,3 +1,62 @@
+
+
+
+/*ex6. 노드 조작 예제*/
+$(function () {
+    var box = $('#ex6>div:nth-child(2)')
+    var addButton = $('#ex6 .btn-add');
+    var removeButton = $('#ex6 .btn-remove');
+    addButton.click(function(){
+        //1. text 노드 추가하기
+        /*var node = document.createTextNode('Hello');
+        box.append(text);*/
+        /*
+        var text = 'Hello';
+        box.append(text);
+        */
+
+        //2. img 노드 추가하기
+        /*
+        $(img);         => Wrapping
+        $("img");       => Selecting
+        $("<img />");   => Creating
+        */
+
+        // 2-1. 방법1
+        /*var img = $("<img />")
+                    .attr("src","images/acorn.png");
+        box.append(img);*/
+
+        // 2-2. jQuery스러운 방법2
+        var img = $("<img />")
+                    .attr("src","images/acorn.png")
+                    .appendTo(box);
+
+        //3. 복합 노드(<span>text</span>) 추가하기
+
+    });
+
+    removeButton.click(function(){
+        
+    });
+});
+
+/*ex5. ?? 예제*/
+$(function () {
+    var img1 = $('#ex5 img:nth-child(1)');
+    var img2 = $('#ex5 img:nth-child(2)');
+    var img3 = $('#ex5 img:nth-child(3)');
+    var okButton = $('#ex5 .btn-ok');
+    var cssButton = $('#ex5 .btn-css');
+    okButton.click(function(){
+
+    });
+
+    cssButton.click(function(){
+        
+    });
+});
+
 /*ex0. 초기화 블록*/
 //window.addEventListener("load", function () { });
 
@@ -115,15 +174,23 @@ $(function () {
     });
 
     cssButton.click(function(){
-    	
+    	/*
     	img1
 		.css({
 			width:"300px"
 		})
 		.css({
 			height:"200px"
-		});
-    	
-    	//img2.addClass("animate");
+        });*/
+        /*
+    	img2.removeClass("animate")
+    	setTimeout(function(){    		
+    		img2.addClass("animate");
+    	},100);*/
+        
+        img2.on("animationend",function(){
+            img2.removeClass("animate");
+        });
+        img2.addClass("animate");
     });
 });
