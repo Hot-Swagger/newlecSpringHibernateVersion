@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="en_US" scope="session"/>
     
@@ -29,6 +30,51 @@
 			<a href="${note.id}/like" class="btn btn-like">좋아요!</a>
 		</div>
 	</section>
+	<section>
+		<h1>${note.commentCount}Comments</h1>
+		<ul>
+		<c:forEach var="c" items="${note.comments}">
+			<li>
+				<table border="1">
+					<tr>
+						<td rowspan="2">
+						1
+						</td>
+						<td>
+						2
+						</td>
+					</tr>
+					<tr>
+						<td>
+						3
+						</td>
+					</tr>
+				</table>
+			</li>
+		</c:forEach>
+		</ul>		
+	</section>
+	<nav>
+		<h1></h1>
+		<ul>
+			<li>
+				<c:if test="${not empty note.prev}">
+				<a href="${note.prev.id}">${note.prev.title}</a>
+				</c:if>
+				<c:if test="${empty note.prev}">
+				<span>이전글이 없습니다.</span>
+				</c:if>
+			</li>
+			<li>
+				<c:if test="${not empty note.next}">
+				<a href="${note.next.id}">${note.next.title}</a>
+				</c:if>
+				<c:if test="${empty note.next}">
+				<span>다음글이 없습니다.</span>
+				</c:if>
+			</li>
+		</ul>
+	</nav>
 </main>
 
 <script>

@@ -11,6 +11,7 @@ import com.notepubs.web.dao.NoteDao;
 import com.notepubs.web.dao.NoteLikeDao;
 import com.notepubs.web.entity.Note;
 import com.notepubs.web.entity.NoteLike;
+import com.notepubs.web.entity.NoteView;
 
 
 @Service
@@ -23,7 +24,7 @@ public class NoteService {
 	private NoteLikeDao noteLikeDao;
 	
 	@Transactional
-	public List<Note> getNoteList(Integer page) {
+	public List<NoteView> getNoteList(Integer page) {
 		
 		//noteDao = new MyBatisNoteDao();
 		
@@ -31,11 +32,15 @@ public class NoteService {
 	}
 
 	@Transactional
-	public Note getNote(Integer id) {
+	public NoteView getNote(Integer id) {
 		
 		//noteDao = new MyBatisNoteDao()();
+		NoteView note = noteDao.get(id);
+		note.setPrev(noteDao.getPrev(id));
+		note.setNext(noteDao.getNext(id));
 		
-		return noteDao.get(id);
+		
+		return note;
 	}
 	
 	@Transactional

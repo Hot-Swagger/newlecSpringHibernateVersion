@@ -15,7 +15,7 @@
 						<%-- <span class="text-concat">${note.content}</span> --%>
 						${note.content}
 					</div>
-					<div><span>분류</span><span>${note.regDate}</span></div>
+					<div><span>분류</span><span>${note.regDate}</span><span>(${note.commentCount})</span></div>
 				</li>			
 				</c:forEach>
 			</ul>

@@ -1,5 +1,40 @@
 
 
+/*ex7. 사진 갤러리 예제 */
+/*
+event (object/bubble/capture/trigger),
+ajax,
+dom 점검
+*/
+$(function(){
+    var viewer = $('#ex7 .viewer');
+    var photoBox = $('#ex7 .photo-box');
+    var photoList = $('#ex7 .photo-box > ul');
+    var leftButton = $('#ex7 .btn-left');
+    var rightButton = $('#ex7 .btn-right');
+    var imgButton1 = $('#ex7 .photo-box ul li:nth-child(1) img');
+    var imgButton2 = $('#ex7 .photo-box ul li:nth-child(2) img');
+    var imgButton3 = $('#ex7 .photo-box ul li:nth-child(3) img');
+    //photoList.css('left',photoList.css('left'));
+
+    leftButton.click(function(){
+        // 애니메이션으로 
+        photoList.css('left','-=180px');   //  -= 복합연산자 가능!!
+
+    });
+
+    rightButton.click(function(){
+        // 애니메이션으로 
+        photoList.css('left','+=180px');   //  += 복합연산자 가능!!
+
+    });
+
+    imgButton1.click(function(){
+        var src = imgButton1.attr("src");
+        viewer.css('background-image',src);
+    });
+
+});
 
 /*ex6. 노드 조작 예제*/
 $(function () {
@@ -32,12 +67,31 @@ $(function () {
                     .attr("src","images/acorn.png")
                     .appendTo(box);
 
-        //3. 복합 노드(<span>text</span>) 추가하기
 
     });
 
     removeButton.click(function(){
-        
+        //3. 노드 삭제 및 순회
+        // 3.1 방법1
+        /*box
+        //  캐리어 -> first: 첫번째 똥파리다. 엘리먼트노드만 기반으로함
+            .children()     // Box의 DOM 자식들을 담는 캐리어(jQuery)객체 하나
+            .first()        // Box에 담겨진 '엘리먼트'중에서 첫번째 객체
+            .remove();*/
+
+        // 3.2 방법2
+        /*box
+            .children(':first-child')
+            .remove();*/
+
+        // 3.3 방법3 : 주의) 중첩된 구조일 경우에 여러 객체가 선택될 수 있음
+        /*box
+        .find(':first-child')   // Box의 '자손'들 중에 첫번째      
+        .remove();*/
+
+        // 3.4 한번에 삭제하기
+        box.empty();
+
     });
 });
 
@@ -55,74 +109,6 @@ $(function () {
     cssButton.click(function(){
         
     });
-});
-
-/*ex0. 초기화 블록*/
-//window.addEventListener("load", function () { });
-
-$(function () {
-    //alert('a');
-});
-
-/*ex1. 노드선택*/
-$(function () {
-    //var okButton = document.querySelector("#ex1 .btn-default");
-    var okButton = $('#ex1 .btn-default');
-    okButton.val('ㅎㅎ');
-});
-
-/*ex2. 이벤트 처리하기*/
-$(function () {
-    var okButton = $('#ex2 .btn-default');
-    /*onButton.onclick = ?;
-    onButton.addEventListener("click",?)*/
-    
-    okButton.on("click",function(){
-    	alert("호호호");
-    });
-    
-    okButton.click(function(){
-    	alert("하하하");
-    });
-});
-
-/*ex3. 속성과 스타일 수정하기*/
-$(function () {
-	
-    var okButton = $('#ex3 .btn-ok');
-    var img = $('#ex3 img');
-    var textBox = $('#ex3 input[type=text]');
-   
-    okButton.click(function () {
-    	// 이미지 변경 src
-    	//var imgName = textBox.attr('value') (x)
-        var imgName = textBox.val();
-        img.attr('src', 'images/' + imgName);
-        
-        // 3. 개별적으로 스타일 지정하기
-        /*img.css("width", "300px");
-        img.css("height", "100px");
-        img.css("box-shadow", "#979797 3px 3px 3px");*/
-        
-        // 4. 하나로 묶어서 스타일 지정하기
-        /*var imgStyle = {
-        	width:"300px",
-        	height:"100px",
-        	boxShadow:"#979797 3px 3px 3px"
-        };
-        img.css(imgStyle);*/
-        
-        // 5. 정적인 스타일은 CSS(.zomm-in)로 준비하고 적용하기
-        img.addClass("zoom-in");
-    });
-
-    var toggleButton = $('#ex3 .btn-toggle');
-    toggleButton.click(function(){
-        if(img.hasClass("zoom-in"))
-        	img.removeClass('zoom-in');
-        else
-            img.addClass('zoom-in');
-    })
 });
 
 /*ex4. 효과주기*/
@@ -193,4 +179,72 @@ $(function () {
         });
         img2.addClass("animate");
     });
+});
+
+/*ex3. 속성과 스타일 수정하기*/
+$(function () {
+	
+    var okButton = $('#ex3 .btn-ok');
+    var img = $('#ex3 img');
+    var textBox = $('#ex3 input[type=text]');
+   
+    okButton.click(function () {
+    	// 이미지 변경 src
+    	//var imgName = textBox.attr('value') (x)
+        var imgName = textBox.val();
+        img.attr('src', 'images/' + imgName);
+        
+        // 3. 개별적으로 스타일 지정하기
+        /*img.css("width", "300px");
+        img.css("height", "100px");
+        img.css("box-shadow", "#979797 3px 3px 3px");*/
+        
+        // 4. 하나로 묶어서 스타일 지정하기
+        /*var imgStyle = {
+        	width:"300px",
+        	height:"100px",
+        	boxShadow:"#979797 3px 3px 3px"
+        };
+        img.css(imgStyle);*/
+        
+        // 5. 정적인 스타일은 CSS(.zomm-in)로 준비하고 적용하기
+        img.addClass("zoom-in");
+    });
+
+    var toggleButton = $('#ex3 .btn-toggle');
+    toggleButton.click(function(){
+        if(img.hasClass("zoom-in"))
+        	img.removeClass('zoom-in');
+        else
+            img.addClass('zoom-in');
+    })
+});
+
+/*ex2. 이벤트 처리하기*/
+$(function () {
+    var okButton = $('#ex2 .btn-default');
+    /*onButton.onclick = ?;
+    onButton.addEventListener("click",?)*/
+    
+    okButton.on("click",function(){
+    	alert("호호호");
+    });
+    
+    okButton.click(function(){
+    	alert("하하하");
+    });
+});
+
+/*ex1. 노드선택*/
+$(function () {
+    //var okButton = document.querySelector("#ex1 .btn-default");
+    var okButton = $('#ex1 .btn-default');
+    okButton.val('ㅎㅎ');
+});
+
+/*ex0. 초기화 블록*/
+//window.addEventListener("load", function () { });
+
+$(function () {
+    //alert('a');
 });

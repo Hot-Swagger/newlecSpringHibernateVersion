@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.notepubs.web.entity.Note;
+import com.notepubs.web.entity.NoteView;
 import com.notepubs.web.service.author.NoteService;
 
 @Controller("authorNoteController")
@@ -33,7 +33,7 @@ public class NoteController {
 	@RequestMapping("list")
 	public String list(@RequestParam(value="p", defaultValue="1") Integer page, Model model) {
 
-		List<Note> notes = service.getNoteList(page);
+		List<NoteView> notes = service.getNoteList(page);
 		model.addAttribute("notes", notes);
 		return "author.note.list";
 	}
@@ -41,7 +41,7 @@ public class NoteController {
 	@RequestMapping("{id}")
 	public String detail(@PathVariable("id") Integer id, Model model) {
 		
-		Note note = service.getNote(id);
+		NoteView note = service.getNote(id);
 		model.addAttribute("note", note);
 	
 		return "author.note.detail";

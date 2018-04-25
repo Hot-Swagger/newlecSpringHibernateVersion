@@ -11,16 +11,35 @@ pageEncoding="UTF-8"%>
 		<script type="text/javascript" src="example.js"></script>
 	</head>
 	<body>
+		<section id="ex7" class="example">
+			<h1>사진 갤러리 예제</h1>
+			<div class="text-align-center viewer">
+				
+			</div>
+			<div class="photo-box">
+				<ul>
+					<li><img class="" alt="이미지" src="images/acorn.png"></li>
+					<li><img class="" alt="이미지" src="images/answeris.png"></li>
+					<li><img class="" alt="이미지" src="images/hanbit.png"></li>
+				</ul>
+			</div>
+			<div>
+				<input class="btn btn-default btn-left" type="button" value="왼쪽" />
+				<input class="btn btn-default btn-right" type="button" value="오른쪽" />
+			</div>
+		</section>
+
 		<section id="ex6" class="example">
 			<h1>노드 조작 예제</h1>
 			<div class="text-align-center">
-				
+				a
 			</div>
 			<div>
 				<input class="btn btn-default btn-add" type="button" value="노드추가" />
 				<input class="btn btn-default btn-remove" type="button" value="노드삭제" />
 			</div>
 		</section>
+
 		<section id="ex5" class="example">
 			<h1>? 예제</h1>
 			<div class="text-align-center">
@@ -33,6 +52,7 @@ pageEncoding="UTF-8"%>
 				<input class="btn btn-default btn-css" type="button" value="css 애니메이트" />
 			</div>
 		</section>
+
 		<section id="ex4" class="example">
 			<h1>효과주기 예제</h1>
 			<div class="text-align-center">
@@ -52,6 +72,7 @@ pageEncoding="UTF-8"%>
 				<input class="btn btn-default btn-css" type="button" value="css 애니메이트" />
 			</div>
 		</section>
+
 		<section id="ex3" class="example">
 			<h1>속성과 스타일 수정하기 예제</h1>
 			<div class="text-align-center">
@@ -70,12 +91,14 @@ pageEncoding="UTF-8"%>
 				<input class="btn btn-default btn-toggle" type="button" value="토글" />
 			</div>
 		</section>
+
 		<section id="ex2" class="example">
 			<h1>이벤트 처리하기 예제</h1>
 			<div>
 				<input class="btn btn-default" type="button" value="확인" />
 			</div>
 		</section>
+
 		<section id="ex1" class="example">
 			<h1>노드선택 예제</h1>
 			<div>

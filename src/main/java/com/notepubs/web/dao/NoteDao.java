@@ -3,15 +3,20 @@ package com.notepubs.web.dao;
 import java.util.List;
 
 import com.notepubs.web.entity.Note;
+import com.notepubs.web.entity.NoteView;
 
 
 public interface NoteDao {
 	
-	List<Note> getList(Integer page);
+	List<NoteView> getList(Integer page);
 	
-	Note get(Integer id);
+	NoteView get(Integer id);
 	
 	int insert(Note note);
+
+	NoteView getPrev(Integer id);
+
+	NoteView getNext(Integer id);
 }
 
 /*mybatis용

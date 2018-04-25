@@ -26,7 +26,7 @@ public class HibernateConfig {
 		ComboPooledDataSource dataSource = new ComboPooledDataSource();
 		
 		dataSource.setDriverClass("com.mysql.jdbc.Driver");
-		dataSource.setJdbcUrl("jdbc:mysql://vaio.notepubs.com/notepubsdb?serverTimezone=UTC&amp;autoReconnect=true&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8");
+		dataSource.setJdbcUrl("jdbc:mysql://vaio.notepubs.com/notepubsdb?serverTimezone=UTC&autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8");
 		dataSource.setUser("notepubs");
 		dataSource.setPassword("cclass");
 		

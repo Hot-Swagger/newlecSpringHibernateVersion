@@ -1,4 +1,4 @@
-package com.notepubs.web.entity;
+package com.notepubs.web.entity2.copy;
 
 import java.util.Date;
 import java.util.List;
@@ -16,10 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Note {
 	
 	@Id
@@ -33,9 +31,6 @@ public class Note {
 	@Column(name="`order`")
 	private int order;
 	private boolean pub;
-	
-	@Transient
-	private List<Comment> comments;
 	
 	public Note() {
 		// TODO Auto-generated constructor stub

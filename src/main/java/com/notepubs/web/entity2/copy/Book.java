@@ -1,4 +1,4 @@
-package com.notepubs.web.entity;
+package com.notepubs.web.entity2.copy;
 
 import java.util.Date;
 import java.util.List;
@@ -10,52 +10,45 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.OneToOne;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public class Note {
+public class Book {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)	//	mysql에서 컬럼 자체에 설정되어있는 증가 옵션을 사용하겠다.
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	//	mysql에서 컬럼 자체에 설정되어있는 증가 옵션을 사용하겠다.
 	private int id;
 	private String title;
-	private String content;
+	private String coverImg;
 	private String writerId;
 	private Date regDate;
 	private int hit;
-	@Column(name="`order`")
+	@Column(name="`order`")		//	mysql에서 컬럼명이 예약어일 경우 `` 사용해야한다.
 	private int order;
-	private boolean pub;
 	
-	@Transient
-	private List<Comment> comments;
-	
-	public Note() {
+	public Book() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Note(String title, String content, String writerId) {
+	public Book(String title, String coverImg, String writerId) {
 		super();
 		this.title = title;
-		this.content = content;
+		this.coverImg = coverImg;
 		this.writerId = writerId;
 	}
 
-	public Note(int id, String title, String content, Date regDate, int hit, boolean pub) {
+	public Book(int id, String title, String coverImg, String writerId, Date regDate, int hit, int order) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.content = content;
+		this.coverImg = coverImg;
+		this.writerId = writerId;
 		this.regDate = regDate;
 		this.hit = hit;
-		this.pub = pub;
+		this.order = order;
 	}
 
 	public int getId() {
@@ -74,12 +67,12 @@ public class Note {
 		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
+	public String getCoverImg() {
+		return coverImg;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setCoverImg(String coverImg) {
+		this.coverImg = coverImg;
 	}
 
 	public String getWriterId() {
@@ -114,18 +107,10 @@ public class Note {
 		this.order = order;
 	}
 
-	public boolean isPub() {
-		return pub;
-	}
-
-	public void setPub(boolean pub) {
-		this.pub = pub;
-	}
-
 	@Override
 	public String toString() {
-		return "Note [id=" + id + ", title=" + title + ", content=" + content + ", writerId=" + writerId + ", regDate="
-				+ regDate + ", hit=" + hit + ", order=" + order + ", pub=" + pub + "]";
+		return "Book [id=" + id + ", title=" + title + ", coverImg=" + coverImg + ", writerId=" + writerId + ", hit="
+				+ hit + ", order=" + order + "]";
 	}
-	
+
 }
