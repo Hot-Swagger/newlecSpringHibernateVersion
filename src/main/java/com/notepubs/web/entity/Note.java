@@ -34,7 +34,9 @@ public class Note {
 	private int order;
 	private boolean pub;
 	
-	@Transient
+	@OneToMany(mappedBy="note"
+				, cascade=CascadeType.ALL
+				, fetch=FetchType.EAGER)
 	private List<Comment> comments;
 	
 	public Note() {
@@ -120,6 +122,14 @@ public class Note {
 
 	public void setPub(boolean pub) {
 		this.pub = pub;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	@Override

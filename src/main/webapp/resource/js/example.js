@@ -12,9 +12,8 @@ $(function(){
     var photoList = $('#ex7 .photo-box > ul');
     var leftButton = $('#ex7 .btn-left');
     var rightButton = $('#ex7 .btn-right');
-    var imgButton1 = $('#ex7 .photo-box ul li:nth-child(1) img');
-    var imgButton2 = $('#ex7 .photo-box ul li:nth-child(2) img');
-    var imgButton3 = $('#ex7 .photo-box ul li:nth-child(3) img');
+    
+    var img = photoList.find("img").first();
     //photoList.css('left',photoList.css('left'));
 
     leftButton.click(function(){
@@ -29,9 +28,58 @@ $(function(){
 
     });
 
-    imgButton1.click(function(){
-        var src = imgButton1.attr("src");
-        viewer.css('background-image',src);
+    //모든 img 엘리먼트에 각각 click 이벤트를 바인딩하는 방식
+    /*photoList.find("img").eq(0).click(function(e){
+        //var target = $(e.target);
+        //this -> DOM
+        var target = $(this);
+        
+    	$("<img />")
+    	.attr("src",target.attr("src"))
+    	.appendTo(viewer);
+    });
+
+    // 위의 이벤트 바인딩을 개선한 방식 : using bubbling
+    photoList.click(function(e){
+    	viewer.empty();
+        var target = $(e.target);
+        
+    	$("<img />")
+    	.attr("src",target.attr("src"))
+    	.appendTo(viewer);
+    });*/
+    
+    // 캡쳐링 과정에서 이벤트 발생시키기
+    // jquery객체를 dom객체로 반환하는 명령어: get(0) <-> eq(0)
+    // 이미지를 클릭했을 때 처리해야할 기본 행위
+    photoList.get(0).addEventListener("click",function(e){
+    	
+    	viewer.empty();
+        var target = $(e.target);
+        
+    	$("<img />")
+    	.attr("src",target.attr("src"))
+    	.appendTo(viewer);
+    	
+    	// 2. 추가적인 일이 순서를 가질때 공통작업
+    	target.css("border","1px solid red");
+    }, true);
+
+    // 1. 특정(예:두번째) 이미지는 다른 일을 시킬수 있다
+    //	- 그것이 추가적인 일일수 있고,
+    //	- 그것이 배타적인 일일수 있고,
+    //	- 그것이 순서가 필요한 일일수 있다.
+    photoList.find("img").get(1).addEventListener("click",function(e){
+        // 1. 추가적인 일을 처리할때
+    	// 선택 이미지의 경계선 색 변경
+    	/*var target = $(e.target);
+    	target.css("border","1px solid red");*/
+    	
+    	// 2. 추가적인 일이 순서를 가질때(부모의 캡처링 옵션을 조정)
+    	var target = $(e.target);
+    	target.css("border","1px solid blue");
+    	
+    	// 3. 배타적인 일을 처리할때
     });
 
 });

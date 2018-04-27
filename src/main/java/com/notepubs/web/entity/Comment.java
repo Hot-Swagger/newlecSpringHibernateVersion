@@ -22,7 +22,15 @@ public class Comment {
 	private String content;
 	private Date regDate;
 	private String writerId;
+	@Column(insertable=false, updatable=false)
 	private int noteId;
+	
+	@ManyToOne(cascade= {CascadeType.DETACH
+						, CascadeType.MERGE
+						, CascadeType.PERSIST
+						, CascadeType.REFRESH})
+	@JoinColumn(name="noteId")
+	private Note note;
 	
 	public Comment() {
 		// TODO Auto-generated constructor stub
@@ -75,6 +83,14 @@ public class Comment {
 
 	public void setNoteId(int noteId) {
 		this.noteId = noteId;
+	}
+
+	public Note getNote() {
+		return note;
+	}
+
+	public void setNote(Note note) {
+		this.note = note;
 	}
 
 	@Override

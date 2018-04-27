@@ -38,15 +38,17 @@
 				<table border="1">
 					<tr>
 						<td rowspan="2">
-						1
+						<img src=""/>
 						</td>
 						<td>
-						2
+						<span>${c.writerId}</span>
+						<span>${c.regDate}</span>
+						<span></span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-						3
+						${c.content}
 						</td>
 					</tr>
 				</table>
