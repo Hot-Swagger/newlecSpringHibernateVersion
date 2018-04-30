@@ -3,15 +3,13 @@
 
 
 .visual{
-	position: relative;
-	top: 46px;
+	margin-top: 46px;
 	height: 200px;
 	background: url("../images/visual-sm.png") no-repeat center;
 	background-size: cover;	/* 빈부분을 일단 다 채워라 */
 }
 .notepubs{
-	margin-top: 46px;
-	padding: 20px;
+	padding: 0px 20px;
 }
 
 	.notepubs li{
@@ -46,10 +44,11 @@
 }
 	.shutter-button-box{
 		text-align: center;
+		height: 0px;
 	}
 		.shutter-button-box > span{
 			position: relative;
-			top: -46px;
+			top: -30px;
 			overflow: hidden;
 			text-indent: -999px;
 			display: inline-block;

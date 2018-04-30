@@ -1,5 +1,24 @@
+<%@page import="org.springframework.format.Printer"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.List"%>
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%
+	String url = "/web2018/resource/js/images";
+	String path = request.getServletContext().getRealPath(url);
+	
+	File file = new File(path);
+	
+	String[] files = file.list();
+	List<String> list = new ArrayList<>();
+	for(String f : files){
+		list.add(f);
+	}
+	for(String s : list)
+%>
+
 <!DOCTYPE html 5>
 <html>
 	<head>

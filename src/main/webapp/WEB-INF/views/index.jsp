@@ -34,12 +34,32 @@
 			shutter
 				.empty();
 				.append(wrapper);*/
+				
+			shutterContent.detach();	// 트리에서 노드를 빼는 함수 (메모리에는 존재)
+			var clipper = $("<div/>")
+							.append(shutterContent)
+							.appendTo(shutter)
+							.css("overflow","hidden");
 			
 			shutterContent.css("transition","400ms");
-			shutterButton.click(function(){
-				shutter.css("overflow","hidden");
+			
+			// 초기 상태 (펼쳐질 것인지, 접을것인지) : visited값을 이용
+			if(${visited})
 				shutterContent
-					.css("margin-top",-shutter.outerHeight()+"px");	
+				.css("margin-top",-shutter.outerHeight()+"px");	
+			
+			shutterButton.click(function(){
+					shutterContent.css("margin-top",-shutter.outerHeight()+"px");
+			});
+			
+			shutterContent.on("transitionend",function(){
+				
+				var marginTop = parseInt(shutterContent.css("margin-top"));
+				
+				if(marginTop < 0)
+					shutterButton.css("background-image","url('resource/images/ic_expand_more_black_24dp_1x.png')");
+				else
+					shutterButton.css("background-image","url('resource/images/ic_expand_less_black_24dp_1x.png')");
 			});
 		});
 	</script>
@@ -91,10 +111,22 @@
 	</section>
 	<!-- main -->
 	<main class="main">
-    	<section>
-    		<h1>노트펍스 홈페이지</h1>
-    		<ul>
-    			<li><a herf="note/list">노트보기</a></li>
+    	<section class="note-list">
+    		<h1>공개노트 목록</h1>
+    		<ul class="">
+    			<li><a href="note/list">노트보기</a></li>
+    		</ul>
+    	</section>
+    	<section class="book-list">
+    		<h1>공개책 목록</h1>
+    		<ul class="">
+    			<li><a href="note/list">책...</a></li>
+    		</ul>
+    	</section>
+    	<section class="published-book-list">
+    		<h1>출간된책 목록</h1>
+    		<ul class="">
+    			<li><a href="note/list">책...</a></li>
     		</ul>
     	</section>
     </main>

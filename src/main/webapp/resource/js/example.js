@@ -63,12 +63,12 @@ $(function(){
     	
     	// 2. 추가적인 일이 순서를 가질때 공통작업
     	target.css("border","1px solid red");
-    }, true);
+    }, false);
 
     // 1. 특정(예:두번째) 이미지는 다른 일을 시킬수 있다
     //	- 그것이 추가적인 일일수 있고,
-    //	- 그것이 배타적인 일일수 있고,
-    //	- 그것이 순서가 필요한 일일수 있다.
+    //	- 그것이 순서가 필요한 일일수 있고,
+    //	- 그것이 배타적인 일일수 있다.
     photoList.find("img").get(1).addEventListener("click",function(e){
         // 1. 추가적인 일을 처리할때
     	// 선택 이미지의 경계선 색 변경
@@ -76,10 +76,13 @@ $(function(){
     	target.css("border","1px solid red");*/
     	
     	// 2. 추가적인 일이 순서를 가질때(부모의 캡처링 옵션을 조정)
-    	var target = $(e.target);
-    	target.css("border","1px solid blue");
+    	/*var target = $(e.target);
+    	target.css("border","1px solid blue");*/
     	
-    	// 3. 배타적인 일을 처리할때
+        // 3. 배타적인 일을 처리할때
+        e.stopPropagation(); // 이벤트 전이를 막는 옵션
+        var target = $(e.target);
+    	target.css("border","1px solid blue");
     });
 
 });
