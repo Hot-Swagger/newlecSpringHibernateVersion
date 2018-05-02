@@ -19,13 +19,23 @@ $(function(){
     leftButton.click(function(){
         // 애니메이션으로 
         photoList.css('left','-=180px');   //  -= 복합연산자 가능!!
-
+        
     });
-
+    
     rightButton.click(function(){
+        if(true){   // 가져와야 하나?
+            // 가져오고
+        }
+        
         // 애니메이션으로 
         photoList.css('left','+=180px');   //  += 복합연산자 가능!!
-
+        
+    });
+    
+    photoList.on("transitionend",function(){
+        if(parseInt(photoList.css("left"))<-photoList.outerWidth()+181 || 
+        parseInt(photoList.css("left"))>0)
+            alert('a');
     });
 
     //모든 img 엘리먼트에 각각 click 이벤트를 바인딩하는 방식

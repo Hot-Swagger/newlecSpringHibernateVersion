@@ -57,3 +57,41 @@
 			border-radius: 30px;
 			background: rgb(67,107,67) url("../images/ic_expand_less_black_24dp_1x.png") no-repeat center;
 		}
+	
+/*--------------------------------------*/
+	
+.category{
+	
+}
+	.category>ul{
+		padding-bottom: 25px;
+	}
+		.category>ul>li{
+			position: relative;
+			display: inline-block;
+			width: 50px;
+			height: 50px;
+			border-radius: 25px;
+			border: 1px solid #999999;
+			text-align: center;
+		}
+			.category>ul>li>a{
+				position: relative;
+				bottom: -50px;
+				font-size: 12px;
+				text-decoration: none;
+				color: #000;
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+

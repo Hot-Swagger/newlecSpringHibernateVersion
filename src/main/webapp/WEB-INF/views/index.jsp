@@ -22,11 +22,12 @@
 	</section>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
+		//shutter
 		$(function(){
 			var shutter = $(".shutter");
 			var shutterContent = $(".shutter ul");
 			var shutterButton = $(".shutter-button-box > span");
-			
+						
 			/* var wrapper = $("<div/>");
 			//shutter 안에 있는 엘리먼트들을 wrapper 안으로 옮기고 wrapper를 shutter의 자식으로 바꿔주자
 			wrapper
@@ -60,6 +61,55 @@
 					shutterButton.css("background-image","url('resource/images/ic_expand_more_black_24dp_1x.png')");
 				else
 					shutterButton.css("background-image","url('resource/images/ic_expand_less_black_24dp_1x.png')");
+			});
+		});
+		
+		//tab-switch
+		$(function(){
+			var categoryUl = $(".category > ul");
+			var categoryView = $(".category-views");
+			categoryUl.click(function(e){
+				e.preventDefault();
+				if(e.target === e.currentTarget)	// 같은 객체인지 비교
+					return;
+				
+				var target = e.target;
+				if(target.nodeName == "A")
+					target = target.parentElement;
+				var viewName = target.dataset.viewName;
+
+				// view 객체 얻기
+				var view = $("."+viewName);
+				
+				// view가 null이면
+					// ajax로 가져오기
+					
+				/* // .load() == 기존의 내용을 ()안의 내용으로 대체하는 ajax
+				categoryView.load('book-list-partial'); */
+				if(view.length == 0){
+					var ajaxIcon = $("<img/>")
+									.attr("src","resource/images/ajax-loader.gif")
+									.css({
+										position: "absolute",
+										left:"17px",
+										top:"20px"
+									})
+									.appendTo(target);
+					/* $(target)
+						.css("background","url('resource/images/ajax-loader.gif') no-repeat center")
+						.css("position","relative"); */
+					$.get('book-list-partial',function(data){
+						var html = categoryView.html();
+						categoryView.html(html+data);
+						ajaxIcon.remove();
+					});
+				}
+					
+				// view를 show 하기
+				categoryView.children("section")
+								.addClass("hidden"); 
+				view
+					.removeClass("hidden");
 			});
 		});
 	</script>
@@ -111,24 +161,34 @@
 	</section>
 	<!-- main -->
 	<main class="main">
-    	<section class="note-list">
-    		<h1>공개노트 목록</h1>
-    		<ul class="">
-    			<li><a href="note/list">노트보기</a></li>
-    		</ul>
-    	</section>
-    	<section class="book-list">
-    		<h1>공개책 목록</h1>
-    		<ul class="">
-    			<li><a href="note/list">책...</a></li>
-    		</ul>
-    	</section>
-    	<section class="published-book-list">
-    		<h1>출간된책 목록</h1>
-    		<ul class="">
-    			<li><a href="note/list">책...</a></li>
-    		</ul>
-    	</section>
+		<section class="category">
+			<h1>카테고리</h1>
+			<ul>
+				<li data-view-name="note-list"><a href="">노트</a></li>
+				<li data-view-name="book-list"><a href="">책</a></li>
+				<li data-view-name="publish-list"><a href="">출간본</a></li>
+			</ul>
+		</section>
+		<div class="category-views">
+	    	<section class="note-list hidden">
+	    		<h1 class="hidden">공개노트 목록</h1>
+	    		<ul class="">
+	    			<li><a href="note/list">노트보기</a></li>
+	    		</ul>
+	    	</section>
+	    	<!-- <section class="book-list hidden">
+	    		<h1 class="hidden">공개책 목록</h1>
+	    		<ul class="">
+	    			<li><a href="note/list">책...</a></li>
+	    		</ul>
+	    	</section> -->
+	    	<section class="publish-list hidden">
+	    		<h1 class="hidden">출간된책 목록</h1>
+	    		<ul class="">
+	    			<li><a href="note/list">책...</a></li>
+	    		</ul>
+	    	</section>
+    	</div>
     </main>
 	<!-- footer -->
 	<jsp:include page="inc/footer.jsp" />
