@@ -83,8 +83,12 @@
 				color: #000;
 			}
 
-
-
+.category-views{
+	
+}
+	.category-views .show{
+		margin-left: -50px;
+	}
 
 
 

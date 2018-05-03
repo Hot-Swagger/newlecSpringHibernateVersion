@@ -9,8 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.converter.json.GsonBuilderUtils;
-import org.springframework.http.converter.json.GsonFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -19,13 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.notepubs.web.entity.NoteView;
+import com.notepubs.web.service.HomeService;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 	
-	/*@Autowired
-	private HomeService service;*/
+	@Autowired
+	private HomeService service;
 	
 	@GetMapping("index")
 	public String index(@CookieValue(value="vid", defaultValue="") String vid
@@ -44,21 +45,23 @@ public class HomeController {
 		}
 		else
 			model.addAttribute("visited", "true");
-		
+		List<NoteView> notes = service.getNoteList(1);
+		model.addAttribute("notes", notes);
 		return "index";
 	}
 
 	@GetMapping("book-list-partial")
 	public String bookListPartial() {
 		
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return "book-list-partial";
 	}
+	
+	@GetMapping("published-list-partial")
+	public String publishedListPartial() {
+		
+		return "published-list-partial";
+	}
+	
 	
 	@GetMapping("note-photo-list")
 	@ResponseBody

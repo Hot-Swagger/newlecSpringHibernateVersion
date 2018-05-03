@@ -68,11 +68,16 @@
 		$(function(){
 			var categoryUl = $(".category > ul");
 			var categoryView = $(".category-views");
+			var ajaxIcon = null;
+			
 			categoryUl.click(function(e){
 				e.preventDefault();
 				if(e.target === e.currentTarget)	// 같은 객체인지 비교
 					return;
-				
+				if(ajaxIcon != null){
+					alert("처리중입니다.")
+					return;
+				}
 				var target = e.target;
 				if(target.nodeName == "A")
 					target = target.parentElement;
@@ -87,7 +92,7 @@
 				/* // .load() == 기존의 내용을 ()안의 내용으로 대체하는 ajax
 				categoryView.load('book-list-partial'); */
 				if(view.length == 0){
-					var ajaxIcon = $("<img/>")
+					ajaxIcon = $("<img/>")
 									.attr("src","resource/images/ajax-loader.gif")
 									.css({
 										position: "absolute",
@@ -95,19 +100,49 @@
 										top:"20px"
 									})
 									.appendTo(target);
+
 					/* $(target)
 						.css("background","url('resource/images/ajax-loader.gif') no-repeat center")
 						.css("position","relative"); */
-					$.get('book-list-partial',function(data){
+					
+					$.get(viewName+'-partial',function(data){
+						
+						
+						
 						var html = categoryView.html();
 						categoryView.html(html+data);
+						
+						view = categoryView.find("."+viewName);
+						
 						ajaxIcon.remove();
+						ajaxIcon = null;
 					});
+						
+					/* switch(viewName){
+					case 'book-list':
+						$.get('book-list-partial',function(data){
+							var html = categoryView.html();
+							categoryView.html(html+data);
+							ajaxIcon.remove();
+							ajaxIcon = null;
+						});
+						break;
+					case 'publish-list':
+						$.get('publish-list-partial',function(data){
+							var html = categoryView.html();
+							categoryView.html(html+data);
+							ajaxIcon.remove();
+							ajaxIcon = null;
+						});
+						break;
+					} */
 				}
+				
+				categoryView.addClass("show");
 					
 				// view를 show 하기
-				categoryView.children("section")
-								.addClass("hidden"); 
+				/* categoryView.children("section")
+								.addClass("hidden");  */
 				view
 					.removeClass("hidden");
 			});
@@ -166,14 +201,24 @@
 			<ul>
 				<li data-view-name="note-list"><a href="">노트</a></li>
 				<li data-view-name="book-list"><a href="">책</a></li>
-				<li data-view-name="publish-list"><a href="">출간본</a></li>
+				<li data-view-name="published-list"><a href="">출간본</a></li>
 			</ul>
 		</section>
 		<div class="category-views">
-	    	<section class="note-list hidden">
+	    	<section class="note-list">
 	    		<h1 class="hidden">공개노트 목록</h1>
 	    		<ul class="">
-	    			<li><a href="note/list">노트보기</a></li>
+	    			<c:forEach var="note" items="${notes}">
+					<li class="text">
+						<div><a href="${note.id}">${note.title}</a></div>
+						<!-- <div class="text ellipsis"> -->
+						<div>
+							<%-- <span class="text-concat">${note.content}</span> --%>
+							${note.content}
+						</div>
+						<div><span>분류</span><span>${note.regDate}</span><span>(${note.commentCount})</span></div>
+					</li>			
+					</c:forEach>
 	    		</ul>
 	    	</section>
 	    	<!-- <section class="book-list hidden">
@@ -182,12 +227,12 @@
 	    			<li><a href="note/list">책...</a></li>
 	    		</ul>
 	    	</section> -->
-	    	<section class="publish-list hidden">
+	    	<!-- <section class="publish-list hidden">
 	    		<h1 class="hidden">출간된책 목록</h1>
 	    		<ul class="">
 	    			<li><a href="note/list">책...</a></li>
 	    		</ul>
-	    	</section>
+	    	</section> -->
     	</div>
     </main>
 	<!-- footer -->
