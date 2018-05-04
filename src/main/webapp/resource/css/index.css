@@ -84,10 +84,29 @@
 			}
 
 .category-views{
-	
+	position: relative;
 }
+
+	.category-views > section{
+		/* background: #fff; */
+		position: absolute;
+		top: 0px;
+		width: 100%;
+		border: 1px solid red;
+	}
+
 	.category-views .show{
-		margin-left: -50px;
+		right: 300px;
+		/* position: absolute;
+		top: 0px;
+		width: 100%;
+		box-sizing: border-box; */
+		/* transition: 0.3s; */
+	}
+	
+	.category-view .hide{
+		position: absolute;
+		z-index: -1;
 	}
 
 

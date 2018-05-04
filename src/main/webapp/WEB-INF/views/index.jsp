@@ -70,6 +70,9 @@
 			var categoryView = $(".category-views");
 			var ajaxIcon = null;
 			
+			var height = categoryView.children().first().height();
+			categoryView.css("height",height+"px");
+			
 			categoryUl.click(function(e){
 				e.preventDefault();
 				if(e.target === e.currentTarget)	// 같은 객체인지 비교
@@ -91,7 +94,7 @@
 					
 				/* // .load() == 기존의 내용을 ()안의 내용으로 대체하는 ajax
 				categoryView.load('book-list-partial'); */
-				if(view.length == 0){
+				/* if(view.length == 0){
 					ajaxIcon = $("<img/>")
 									.attr("src","resource/images/ajax-loader.gif")
 									.css({
@@ -100,51 +103,80 @@
 										top:"20px"
 									})
 									.appendTo(target);
-
-					/* $(target)
-						.css("background","url('resource/images/ajax-loader.gif') no-repeat center")
-						.css("position","relative"); */
 					
 					$.get(viewName+'-partial',function(data){
-						
-						
-						
+												
 						var html = categoryView.html();
 						categoryView.html(html+data);
 						
+						var views = categoryView.find("section");
+						
+						var height = Math.max(views.eq(0).height(), views.eq(1).height());
+						views.css("height", height);
+												
 						view = categoryView.find("."+viewName);
+						
+						
+						view.addClass("show")
+							.animate({
+									right: "0px"
+								},400,function(){
+									view.prev().remove();
+									view.css("position","static")
+										.css("height","auto");
+								});
 						
 						ajaxIcon.remove();
 						ajaxIcon = null;
 					});
-						
-					/* switch(viewName){
-					case 'book-list':
-						$.get('book-list-partial',function(data){
-							var html = categoryView.html();
-							categoryView.html(html+data);
-							ajaxIcon.remove();
-							ajaxIcon = null;
-						});
-						break;
-					case 'publish-list':
-						$.get('publish-list-partial',function(data){
-							var html = categoryView.html();
-							categoryView.html(html+data);
-							ajaxIcon.remove();
-							ajaxIcon = null;
-						});
-						break;
-					} */
 				}
-				
-				categoryView.addClass("show");
-					
+				else
+					view.addClass("show")
+					.animate({
+							right: "0px"
+						},400,function(){
+							view.prev().remove();
+							view.css("position","static")
+								.css("height","auto");
+						});
+				 */
 				// view를 show 하기
 				/* categoryView.children("section")
-								.addClass("hidden");  */
-				view
-					.removeClass("hidden");
+								.addClass("hidden"); */
+								
+				// 1. css로 초기상태 만들기
+				// 2. view들의 포지션이 모두 absolute로 겹치게 만들기
+				// 3. view들의 부모는 첫번째 view의 높이와 같게한다
+				
+				// 4. 단, 그 높이는 실행해봐야 아는 문제니까 스크립트로 처리한다
+				
+				
+				var currentHeight = view.css("height","auto").height();
+				var views = categoryView.find("section");
+				views.animate({
+					height:currentHeight+"px",
+					display:"hidden",
+					"z-index":"-1"
+				},300,function(){
+					categoryView.css("height",currentHeight+"px");
+					view.css("z-index","1");
+				});
+				/* views.animate({
+					height:currentHeight+"px",
+					overflow:"hidden",
+					z-index: "-1";
+				},300,function(){
+					categoryView.css({
+						height:currentHeight+"px",
+						overflow:"hidden"
+					});
+					view.css("z-index","1");
+				}); */
+				/* views
+					.animate({
+						height:currentHeight+"px";
+					},400); */
+				
 			});
 		});
 	</script>
@@ -221,18 +253,18 @@
 					</c:forEach>
 	    		</ul>
 	    	</section>
-	    	<!-- <section class="book-list hidden">
+	    	<section class="book-list hidden">
 	    		<h1 class="hidden">공개책 목록</h1>
 	    		<ul class="">
 	    			<li><a href="note/list">책...</a></li>
 	    		</ul>
-	    	</section> -->
-	    	<!-- <section class="publish-list hidden">
+	    	</section>
+	    	<section class="published-list hidden">
 	    		<h1 class="hidden">출간된책 목록</h1>
 	    		<ul class="">
 	    			<li><a href="note/list">책...</a></li>
 	    		</ul>
-	    	</section> -->
+	    	</section>
     	</div>
     </main>
 	<!-- footer -->
